@@ -95,8 +95,9 @@ for i in np.arange(ini_fin[0], ini_fin[1]):
   elif i%5 == 0: #Change the number to a number that works for you.
     aux = ini_fin[1] - ini_fin[0] - counter
     print(str(aux)+" tweets remains to finish.")
-    uptd_db_path = "./updated_tweet_database.csv" #modify this if you're starting again, 
-    #take note of the input range that you're doing.
+    uptd_db_path = ("./updated_tweet_database_"+
+                    str(ini_fin[0])+"_"+str(ini_fin[1])+".csv") 
+    #take note of the input range that you're doing if you change the name.
     files_present = glob.glob(uptd_db_path)
     # if no matching files, write to csv, if there are matching files, print statement
     if not files_present:

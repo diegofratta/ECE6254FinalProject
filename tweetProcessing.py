@@ -41,10 +41,17 @@ def main():
             tweets.append(row)
     with open("raw_data/updated_Tsla$TweetsNov.csv", "r", encoding="utf8") as f:
         reader = csv.reader(f)
-        #only add rows 517 to 991 to tweets
+        #only add rows 1 to 324 to tweets
         for row in islice(reader, 1, 324):
             #print(len(row))
             tweets.append(row)
+    with open("raw_data/updated_Tsla$TweetsSep.csv", "r", encoding="utf8") as f:
+        reader = csv.reader(f)
+        #only add rows 1 to 347 to tweets
+        for row in islice(reader, 1, 347):
+            #print(len(row))
+            tweets.append(row)
+
     
 
     positive_tweets = 0

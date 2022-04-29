@@ -52,12 +52,47 @@ def main():
             #print(len(row))
             tweets.append(row)
 
+    with open("raw_data/0_20TslaDelayBadTweets.csv", "r", encoding="utf8") as f:
+        reader = csv.reader(f)
+        #only add rows 1 to 347 to tweets
+        for row in islice(reader, 1, 20):
+            #print(len(row))
+            tweets.append(row)
+    
+    with open("raw_data/Bear0_183.csv", "r", encoding="utf8") as f:
+        reader = csv.reader(f)
+        #only add rows 1 to 347 to tweets
+        for row in islice(reader, 1, 182):
+            #print(len(row))
+            tweets.append(row)
+
+    with open("raw_data/Bull0_81.csv", "r", encoding="utf8") as f:
+        reader = csv.reader(f)
+        #only add rows 1 to 347 to tweets
+        for row in islice(reader, 1, 80):
+            #print(len(row))
+            tweets.append(row)
+    
+    with open("raw_data/Bull82_281.csv", "r", encoding="utf8") as f:
+        reader = csv.reader(f)
+        #only add rows 1 to 347 to tweets
+        for row in islice(reader, 81, 281):
+            #print(len(row))
+            tweets.append(row)
+
     
 
     positive_tweets = 0
     negative_tweets = 0
     neutral_tweets = 0
+    #count = 0
     for n in tweets:
+        
+        #print(count)
+        #count+=1
+        #if(count == 2582):
+            #print(n)
+            #print("okay")
         if n[37] == "0.0":
             negative_tweets += 1
         elif n[37] == "1.0":
@@ -75,6 +110,12 @@ def main():
         elif n[37] == "1":
             neutral_tweets += 1
         elif n[37] == "2":
+            positive_tweets += 1
+        elif n[37] == 0:
+            negative_tweets += 1
+        elif n[37] == 1:
+            neutral_tweets += 1
+        elif n[37] == 2:
             positive_tweets += 1
         else:
             diego = 5 #do nothing

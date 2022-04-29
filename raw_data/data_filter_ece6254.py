@@ -17,18 +17,18 @@ from IPython.display import clear_output
 from pathlib import Path
 import glob
 
-mm,dd,yyyy,close,volume,open,high,low = (np.loadtxt("./TeslaData5Years_mm_dd_yyyy.txt", 
-                                                    unpack = True, skiprows=1, delimiter=","))
+#mm,dd,yyyy,close,volume,open,high,low = (np.loadtxt("./TeslaData5Years_mm_dd_yyyy.txt", 
+                                                    #unpack = True, skiprows=1, delimiter=","))
 
 #
-aux = close-open
-aux[aux>0] = 1
-aux[aux<=0] = 0
+#aux = close-open
+#aux[aux>0] = 1
+#aux[aux<=0] = 0
 #More stuff to be added.
 
 """##Manual sentimental analysis of the tweets"""
 
-filepath = "./tweet_data.txt"
+filepath = "TslaDelayBadTweets.csv"
 tweets_db = pd.read_csv(filepath, dtype=str, sep=',').fillna(0)
 df = pd.DataFrame()
 df['sentimental_value'] = np.zeros(len(tweets_db['id'].values))
@@ -85,14 +85,14 @@ def get_urls(url):
 
   return url_format
 
-ini_fin = [1000,1010] #Range of tweets to analyze
+ini_fin = [0,136] #Range of tweets to analyze
 counter = 0
 for i in np.arange(ini_fin[0], ini_fin[1]):
-  if counter == 3:
-    plt.close('all')
-    clear_output(wait=True)
-    counter = 0
-  elif i%5 == 0: #Change the number to a number that works for you.
+  #if counter == 3:
+    #plt.close('all')
+    #clear_output(wait=True)
+    #counter = 0
+  #elif i%5 == 0: #Change the number to a number that works for you.
     aux = ini_fin[1] - ini_fin[0] - counter
     print(str(aux)+" tweets remains to finish.")
     uptd_db_path = ("./updated_tweet_database_"+
@@ -100,9 +100,9 @@ for i in np.arange(ini_fin[0], ini_fin[1]):
     #take note of the input range that you're doing if you change the name.
     files_present = glob.glob(uptd_db_path)
     # if no matching files, write to csv, if there are matching files, print statement
-    if not files_present:
-      tweets_db.to_csv(uptd_db_path)
-      print('''
+    #if not files_present:
+    tweets_db.to_csv(uptd_db_path)
+    print('''
       \\\\\\\\\\\\---------------------------\\\\\\\\\\
       \\\\\\\\\\\\---------------------------\\\\\\\\\\
       \\\\\\\\\\\\---------------------------\\\\\\\\\\
@@ -115,8 +115,8 @@ for i in np.arange(ini_fin[0], ini_fin[1]):
       \\\\\\\\\\\\---------------------------\\\\\\\\\\
       \\\\\\\\\\\\---------------------------\\\\\\\\\\
       ''')
-    else:
-      print('''
+    #else:
+    """  print('''
       \\\\\\\\\\\\---------------------------\\\\\\\\\\
       \\\\\\\\\\\\---------------------------\\\\\\\\\\
       \\\\\\\\\\\\---------------------------\\\\\\\\\\
@@ -129,17 +129,16 @@ for i in np.arange(ini_fin[0], ini_fin[1]):
       \\\\\\\\\\\\---------------------------\\\\\\\\\\
       \\\\\\\\\\\\---------------------------\\\\\\\\\\
       \\\\\\\\\\\\---------------------------\\\\\\\\\\
-      ''')
+      ''') """
     
     
     df.to_csv(index=False)
-  urls = get_urls(tweets_db['photos'].values[i])
-  show_tweet(tweets_db['tweet'].values[i], urls)
-  sv = sentimental_evaluation()
-  tweets_db['sentimental_value'].values[i] = sv
-  counter += 1
+    urls = get_urls(tweets_db['photos'].values[i])
+    show_tweet(tweets_db['tweet'].values[i], urls)
+    sv = sentimental_evaluation()
+    tweets_db['sentimental_value'].values[i] = sv
+    counter += 1
 
-0
 tweets_db = pd.read_csv(filepath, dtype=str, sep=',').fillna(0) #This should point to the 
 #new database with the labels... CHANGE
 pos = 0
@@ -208,7 +207,7 @@ for i in range(ini_fin[0], ini_fin[1]+1):
   else: 
     print(str(aux)+" not a keyword, should be test or train instead")
 
-!tar -czvf tweet_database.tar.gz ./database/
-from google.colab import files
-files.download("./tweet_database.tar.gz")
+#!tar -czvf tweet_database.tar.gz ./database/
+#from google.colab import files
+#files.download("./tweet_database.tar.gz")
 
